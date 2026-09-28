@@ -87,13 +87,18 @@
         </div>
       </section>
 
-      <!-- Placeholder view (for non-login menu items) -->
-      <section class="panel" id="placeholderView" hidden>
-        <div class="card">
-          <h2 class="card__title" id="placeholderTitle">Section</h2>
-          <p class="card__subtitle" id="placeholderText">
-            This is a placeholder. In a real portal this menu would open its own page.
-          </p>
+      <!-- Dynamic form view (built by JavaScript for each menu item) -->
+      <section class="panel" id="formView" hidden>
+        <div class="card card--wide">
+          <header class="card__head">
+            <h2 class="card__title" id="formTitle">Form</h2>
+            <p class="card__subtitle">Demo form — nothing you enter is saved or sent anywhere.</p>
+          </header>
+          <form id="dynForm" class="form" novalidate>
+            <div id="formFields"></div>
+            <button type="submit" class="btn btn--primary">Submit (demo)</button>
+            <p class="form__status" id="dynStatus" role="status"></p>
+          </form>
         </div>
       </section>
     </main>

@@ -229,3 +229,17 @@ code { background: rgba(44, 86, 151, 0.1); color: var(--primary); padding: 1px 6
   .sidebar.is-open { display: block; }
   .content { padding: 20px 16px; }
 }
+
+/* ---- Dynamic forms (built by JavaScript) ---- */
+.card--wide { max-width: 640px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+.field--full { grid-column: 1 / -1; }
+.field__label .req { color: var(--error); }
+
+/* Make select and textarea share the input styling */
+select.field__input { appearance: auto; height: 42px; }
+textarea.field__input { resize: vertical; min-height: 74px; font-family: inherit; }
+
+@media (max-width: 560px) {
+  .form-grid { grid-template-columns: 1fr; }
+}
