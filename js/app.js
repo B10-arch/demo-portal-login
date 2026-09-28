@@ -120,12 +120,13 @@ MENU.forEach((section) => {
   // Section header button
   const btn = document.createElement("button");
   btn.className = "menu__button";
-  btn.setAttribute("aria-expanded", "true"); // start expanded, like the reference
+  btn.setAttribute("aria-expanded", "false"); // start collapsed; expand on click
   btn.innerHTML = `<span>${section.title}</span><span class="caret">▼</span>`;
   li.appendChild(btn);
 
   const sub = document.createElement("ul");
   sub.className = "submenu";
+  sub.hidden = true; // dropdowns are hidden until their header is clicked
 
   if (section.login) {
     // "General Login": the header itself opens the login form
@@ -133,8 +134,6 @@ MENU.forEach((section) => {
       openLogin(section.title);
       closeSidebarOnMobile();
     });
-    sub.hidden = true;
-    btn.setAttribute("aria-expanded", "false");
   } else {
     // Build the sub-links
     section.items.forEach((text) => {
