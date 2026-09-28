@@ -44,6 +44,7 @@
   user-select: none;
 }
 .tree__node:hover { background: #eaf1fb; }
+.tree__node:focus-visible { outline: 2px solid #2f68b3; outline-offset: -2px; }
 .tree__toggle { width: 12px; text-align: center; color: #6b7280; font-size: 11px; }
 .tree__icon { color: #e0a92e; }              /* folder color */
 .tree__leaf .tree__icon { color: #7c93b5; }  /* page color */

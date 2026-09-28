@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Demo Portal — Taxpayer Dashboard</title>
+  <meta name="description" content="An educational demo taxpayer dashboard for teaching students. All data is fake. Not affiliated with any real organization." />
+  <meta name="theme-color" content="#2f6cbf" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232f6cbf'/%3E%3Ctext x='16' y='22' font-size='15' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'%3EDP%3C/text%3E%3C/svg%3E" />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="stylesheet" href="css/dashboard.css" />
 </head>
@@ -14,7 +17,7 @@
 
   <!-- Top blue header (same as the login page) -->
   <header class="topbar">
-    <button class="topbar__menu" id="menuToggle" aria-label="Toggle menu">☰</button>
+    <button class="topbar__menu" id="menuToggle" aria-label="Toggle menu" aria-controls="sidebar" aria-expanded="false">☰</button>
     <div class="topbar__brand">
       <div class="brand-badge" aria-hidden="true">DP</div>
       <div class="brand-text">

@@ -319,7 +319,11 @@ dynForm.addEventListener("submit", (e) => {
 })();
 
 const sidebar = document.getElementById("sidebar");
-document.getElementById("menuToggle").addEventListener("click", () => sidebar.classList.toggle("is-open"));
+const menuToggleBtn = document.getElementById("menuToggle");
+menuToggleBtn.addEventListener("click", () => {
+  const open = sidebar.classList.toggle("is-open");
+  menuToggleBtn.setAttribute("aria-expanded", String(open));
+});
 function closeSidebarOnMobile() { if (window.innerWidth <= 760) sidebar.classList.remove("is-open"); }
 
 /* ================= 6. Login form (front-end only) ================= */

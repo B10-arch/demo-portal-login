@@ -70,6 +70,12 @@ function renderTree(nodes, container) {
     row.className = "tree__node" + (node.leaf ? " tree__leaf" : "");
 
     const hasKids = node.children && node.children.length;
+
+    // Make each row keyboard-focusable and announce it as a control.
+    row.setAttribute("role", "button");
+    row.setAttribute("tabindex", "0");
+    if (hasKids) row.setAttribute("aria-expanded", String(!!node.open));
+
     const toggle = document.createElement("span");
     toggle.className = "tree__toggle";
     toggle.textContent = hasKids ? (node.open ? "−" : "+") : "";
@@ -77,6 +83,7 @@ function renderTree(nodes, container) {
     const icon = document.createElement("span");
     icon.className = "tree__icon";
     icon.textContent = node.leaf ? "📄" : "📁";
+    icon.setAttribute("aria-hidden", "true");
 
     const label = document.createElement("span");
     label.textContent = node.label;
@@ -93,16 +100,22 @@ function renderTree(nodes, container) {
       li.appendChild(kids);
     }
 
-    row.addEventListener("click", () => {
+    // Shared activation for both mouse and keyboard.
+    function activate() {
       if (hasKids) {
         kids.hidden = !kids.hidden;
         toggle.textContent = kids.hidden ? "+" : "−";
+        row.setAttribute("aria-expanded", String(!kids.hidden));
       } else {
-        // Leaf click: highlight + show a demo message
         document.querySelectorAll(".tree__node--active").forEach((n) => n.classList.remove("tree__node--active"));
         row.classList.add("tree__node--active");
         toast('Demo menu: "' + node.label + '" (no real page in this sample)');
       }
+    }
+
+    row.addEventListener("click", activate);
+    row.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); activate(); }
     });
 
     container.appendChild(li);
@@ -181,8 +194,10 @@ document.getElementById("clearCache").addEventListener("click", () => toast("Cac
 document.getElementById("clearCache2").addEventListener("click", () => toast("Cache cleared (demo)."));
 document.getElementById("payVat").addEventListener("click", () => toast("VAT due is 0 — nothing to pay (demo)."));
 
-document.getElementById("menuToggle").addEventListener("click", () => {
-  document.getElementById("sidebar").classList.toggle("is-open");
+const menuToggleBtn = document.getElementById("menuToggle");
+menuToggleBtn.addEventListener("click", () => {
+  const open = document.getElementById("sidebar").classList.toggle("is-open");
+  menuToggleBtn.setAttribute("aria-expanded", String(open));
 });
 
 /* ---------- Tiny toast helper ---------- */

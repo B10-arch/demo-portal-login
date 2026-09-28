@@ -64,6 +64,7 @@ body {
   padding: 10px 20px;
 }
 .topbar__menu {
+  display: none;                 /* only shown on small screens */
   background: rgba(255, 255, 255, 0.15);
   color: #fff;
   border: none;
@@ -223,6 +224,7 @@ code { background: rgba(44, 86, 151, 0.1); color: var(--primary); padding: 1px 6
 
 /* ---- Responsive ---- */
 @media (max-width: 760px) {
+  .topbar__menu { display: inline-block; }
   .topbar__slogan { display: none; }
   .layout { flex-direction: column; }
   .sidebar { width: 100%; display: none; }
