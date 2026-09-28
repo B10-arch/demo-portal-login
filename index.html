@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo Portal — Teaching Login</title>
+  <meta name="description" content="An educational demo login page for teaching students HTML, CSS, and client-side form validation. Not a real service." />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- ============================================================
+       DEMO BANNER
+       Makes it unmistakable this is a teaching sample, not a real
+       login for any organization. Keep this on the page.
+       ============================================================ -->
+  <div class="demo-banner" role="note">
+    ⚠️ DEMO — teaching sample only. Not affiliated with any real service. Do not enter real passwords.
+  </div>
+
+  <main class="page">
+    <section class="card" aria-labelledby="login-title">
+      <header class="card__head">
+        <div class="logo" aria-hidden="true">DP</div>
+        <h1 id="login-title" class="card__title">Demo Portal</h1>
+        <p class="card__subtitle">Sign in to the sample dashboard</p>
+      </header>
+
+      <!-- The form. novalidate lets our JavaScript handle validation
+           so students can see how custom validation works. -->
+      <form id="loginForm" class="form" novalidate>
+        <!-- Username field -->
+        <div class="field">
+          <label for="username" class="field__label">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="field__input"
+            autocomplete="username"
+            placeholder="e.g. student"
+            aria-describedby="username-error"
+          />
+          <p class="field__error" id="username-error" role="alert"></p>
+        </div>
+
+        <!-- Password field with show/hide toggle -->
+        <div class="field">
+          <label for="password" class="field__label">Password</label>
+          <div class="field__password">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="field__input"
+              autocomplete="current-password"
+              placeholder="Enter your password"
+              aria-describedby="password-error"
+            />
+            <button type="button" class="field__toggle" id="togglePassword" aria-label="Show password">Show</button>
+          </div>
+          <p class="field__error" id="password-error" role="alert"></p>
+        </div>
+
+        <div class="form__row">
+          <label class="checkbox">
+            <input type="checkbox" id="remember" name="remember" />
+            <span>Remember me</span>
+          </label>
+          <a href="#" class="link" id="forgot">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn--primary" id="submitBtn">Sign in</button>
+
+        <!-- A place to show the overall result of a login attempt -->
+        <p class="form__status" id="formStatus" role="status"></p>
+      </form>
+
+      <!-- Demo credentials are shown openly because this is a teaching tool -->
+      <footer class="card__foot">
+        <p class="hint"><strong>Demo credentials</strong></p>
+        <p class="hint">Username: <code>student</code> &nbsp;·&nbsp; Password: <code>demo1234</code></p>
+      </footer>
+    </section>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

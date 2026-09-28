@@ -1,0 +1,200 @@
+/* =============================================================
+   Demo Portal — teaching stylesheet
+   Written to be read by students: plain CSS, no framework.
+   Colors are defined once as variables so they are easy to change.
+   ============================================================= */
+
+:root {
+  --bg: #eef2f7;
+  --card-bg: #ffffff;
+  --text: #1f2933;
+  --muted: #6b7280;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --border: #d1d5db;
+  --error: #dc2626;
+  --success: #16a34a;
+  --radius: 12px;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Support dark mode without changing the layout */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f172a;
+    --card-bg: #1e293b;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --border: #334155;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* The yellow warning strip at the top of the page */
+.demo-banner {
+  background: #fde68a;
+  color: #78350f;
+  text-align: center;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+  min-height: calc(100vh - 44px);
+}
+
+/* The white login box */
+.card {
+  background: var(--card-bg);
+  width: 100%;
+  max-width: 400px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 32px;
+}
+
+.card__head { text-align: center; margin-bottom: 24px; }
+
+.logo {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 12px;
+  border-radius: 14px;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card__title { margin: 0 0 4px; font-size: 22px; }
+.card__subtitle { margin: 0; color: var(--muted); font-size: 14px; }
+
+/* ---- Form fields ---- */
+.field { margin-bottom: 18px; }
+
+.field__label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.field__input {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 15px;
+  background: var(--card-bg);
+  color: var(--text);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.field__input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* When JS marks a field invalid, it adds this class */
+.field__input.is-invalid {
+  border-color: var(--error);
+}
+
+/* Password field + Show/Hide button sit side by side */
+.field__password { position: relative; }
+.field__password .field__input { padding-right: 64px; }
+
+.field__toggle {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 6px;
+}
+
+/* Inline error text under a field */
+.field__error {
+  margin: 6px 0 0;
+  min-height: 16px;
+  color: var(--error);
+  font-size: 13px;
+}
+
+.form__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.checkbox { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+.link { color: var(--primary); text-decoration: none; }
+.link:hover { text-decoration: underline; }
+
+/* ---- Buttons ---- */
+.btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn--primary { background: var(--primary); color: #fff; }
+.btn--primary:hover { background: var(--primary-dark); }
+.btn--primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Overall status message under the button */
+.form__status {
+  margin: 14px 0 0;
+  text-align: center;
+  font-size: 14px;
+  min-height: 18px;
+}
+.form__status.is-error { color: var(--error); }
+.form__status.is-success { color: var(--success); }
+
+/* ---- Footer with demo credentials ---- */
+.card__foot {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+.hint { margin: 4px 0; font-size: 13px; color: var(--muted); }
+code {
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--primary);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}

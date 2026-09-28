@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo Portal — Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="demo-banner" role="note">
+    ⚠️ DEMO — teaching sample only. Not affiliated with any real service.
+  </div>
+
+  <main class="page">
+    <section class="card" style="max-width: 440px; text-align: center;">
+      <div class="logo" aria-hidden="true" style="margin-bottom:16px;">✓</div>
+      <h1 class="card__title">You're signed in</h1>
+      <p class="card__subtitle" id="welcome">Welcome to the sample dashboard.</p>
+
+      <p class="hint" style="margin-top:20px;">
+        This page is only reachable after the demo login succeeds. In a real
+        application, a server would verify your session before showing it.
+      </p>
+
+      <button class="btn btn--primary" id="logoutBtn" style="margin-top:20px;">Log out</button>
+    </section>
+  </main>
+
+  <script>
+    // Read the pretend session set by the login page.
+    let user = null;
+    try { user = sessionStorage.getItem("demo_user"); } catch (e) {}
+
+    // If someone opens this page directly without "logging in",
+    // send them back to the login page.
+    let loggedIn = false;
+    try { loggedIn = sessionStorage.getItem("demo_logged_in") === "true"; } catch (e) {}
+    if (!loggedIn) {
+      window.location.href = "index.html";
+    }
+
+    if (user) {
+      document.getElementById("welcome").textContent = "Welcome, " + user + "!";
+    }
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      try {
+        sessionStorage.removeItem("demo_logged_in");
+        sessionStorage.removeItem("demo_user");
+      } catch (e) {}
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
