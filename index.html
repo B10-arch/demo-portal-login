@@ -3,85 +3,99 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Demo Portal — Teaching Login</title>
-  <meta name="description" content="An educational demo login page for teaching students HTML, CSS, and client-side form validation. Not a real service." />
+  <title>Demo Portal — Teaching Sample</title>
+  <meta name="description" content="An educational demo of an e-services portal layout for teaching students. Not affiliated with any real organization." />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <!-- ============================================================
-       DEMO BANNER
-       Makes it unmistakable this is a teaching sample, not a real
-       login for any organization. Keep this on the page.
-       ============================================================ -->
+  <!-- DEMO BANNER: makes clear this is a teaching sample, not a real service -->
   <div class="demo-banner" role="note">
-    ⚠️ DEMO — teaching sample only. Not affiliated with any real service. Do not enter real passwords.
+    ⚠️ DEMO — teaching sample only. Not a real portal and not affiliated with any organization. Do not enter real passwords.
   </div>
 
-  <main class="page">
-    <section class="card" aria-labelledby="login-title">
-      <header class="card__head">
-        <div class="logo" aria-hidden="true">DP</div>
-        <h1 id="login-title" class="card__title">Demo Portal</h1>
-        <p class="card__subtitle">Sign in to the sample dashboard</p>
-      </header>
+  <!-- Thin top strip + header title bar (mirrors a typical portal header) -->
+  <div class="topstrip"></div>
+  <header class="topbar">
+    <button class="topbar__menu" id="menuToggle" aria-label="Toggle menu">☰</button>
+    <span class="topbar__title">..::: Demo E-Services System :::..</span>
+  </header>
 
-      <!-- The form. novalidate lets our JavaScript handle validation
-           so students can see how custom validation works. -->
-      <form id="loginForm" class="form" novalidate>
-        <!-- Username field -->
-        <div class="field">
-          <label for="username" class="field__label">Username</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            class="field__input"
-            autocomplete="username"
-            placeholder="e.g. student"
-            aria-describedby="username-error"
-          />
-          <p class="field__error" id="username-error" role="alert"></p>
+  <div class="layout">
+    <!-- ============ SIDEBAR MENU ============ -->
+    <nav class="sidebar" id="sidebar" aria-label="Main menu">
+      <!-- Menu items are built by JavaScript from the list in js/app.js.
+           Each one is a collapsible section (accordion). -->
+      <ul class="menu" id="menu"></ul>
+    </nav>
+
+    <!-- ============ MAIN CONTENT ============ -->
+    <main class="content" id="content">
+      <!-- Default landing view: a neutral placeholder badge + title.
+           This replaces the national emblem from the original layout. -->
+      <section class="welcome" id="welcomeView">
+        <svg class="badge" viewBox="0 0 200 200" role="img" aria-label="Demo Portal badge">
+          <circle cx="100" cy="100" r="94" fill="#e8eef7" stroke="#2c5697" stroke-width="4"/>
+          <circle cx="100" cy="100" r="70" fill="#2c5697"/>
+          <!-- a simple graduation cap to signal 'teaching' -->
+          <path d="M100 66 L142 84 L100 102 L58 84 Z" fill="#ffffff"/>
+          <path d="M76 92 L76 112 Q100 126 124 112 L124 92" fill="none" stroke="#ffffff" stroke-width="5"/>
+          <line x1="142" y1="84" x2="142" y2="110" stroke="#ffffff" stroke-width="4"/>
+          <circle cx="142" cy="112" r="5" fill="#ffd24d"/>
+          <text x="100" y="150" text-anchor="middle" font-size="16" fill="#ffffff" font-family="sans-serif" font-weight="bold">DEMO</text>
+        </svg>
+        <h1 class="welcome__title">..:: DEMO PORTAL ::..</h1>
+        <p class="welcome__subtitle">TRAINING SAMPLE — NOT A REAL SERVICE</p>
+        <p class="welcome__hint">Choose <strong>General Login</strong> from the menu to try the sample sign-in.</p>
+      </section>
+
+      <!-- Login view: hidden until 'General Login' is chosen -->
+      <section class="panel" id="loginView" hidden>
+        <div class="card" aria-labelledby="login-title">
+          <header class="card__head">
+            <h2 id="login-title" class="card__title">General Login</h2>
+            <p class="card__subtitle">Sign in to the sample dashboard</p>
+          </header>
+
+          <form id="loginForm" class="form" novalidate>
+            <div class="field">
+              <label for="username" class="field__label">Username</label>
+              <input type="text" id="username" name="username" class="field__input"
+                     autocomplete="username" placeholder="e.g. student" aria-describedby="username-error" />
+              <p class="field__error" id="username-error" role="alert"></p>
+            </div>
+
+            <div class="field">
+              <label for="password" class="field__label">Password</label>
+              <div class="field__password">
+                <input type="password" id="password" name="password" class="field__input"
+                       autocomplete="current-password" placeholder="Enter your password" aria-describedby="password-error" />
+                <button type="button" class="field__toggle" id="togglePassword" aria-label="Show password">Show</button>
+              </div>
+              <p class="field__error" id="password-error" role="alert"></p>
+            </div>
+
+            <button type="submit" class="btn btn--primary" id="submitBtn">Sign in</button>
+            <p class="form__status" id="formStatus" role="status"></p>
+          </form>
+
+          <footer class="card__foot">
+            <p class="hint"><strong>Demo credentials</strong></p>
+            <p class="hint">Username: <code>student</code> &nbsp;·&nbsp; Password: <code>demo1234</code></p>
+          </footer>
         </div>
+      </section>
 
-        <!-- Password field with show/hide toggle -->
-        <div class="field">
-          <label for="password" class="field__label">Password</label>
-          <div class="field__password">
-            <input
-              type="password"
-              id="password"
-              name="password"
-              class="field__input"
-              autocomplete="current-password"
-              placeholder="Enter your password"
-              aria-describedby="password-error"
-            />
-            <button type="button" class="field__toggle" id="togglePassword" aria-label="Show password">Show</button>
-          </div>
-          <p class="field__error" id="password-error" role="alert"></p>
+      <!-- Placeholder view: shown for any other menu item -->
+      <section class="panel" id="placeholderView" hidden>
+        <div class="card">
+          <h2 class="card__title" id="placeholderTitle">Section</h2>
+          <p class="card__subtitle" id="placeholderText">
+            This is a placeholder. In a real portal this menu would open its own page.
+          </p>
         </div>
-
-        <div class="form__row">
-          <label class="checkbox">
-            <input type="checkbox" id="remember" name="remember" />
-            <span>Remember me</span>
-          </label>
-          <a href="#" class="link" id="forgot">Forgot password?</a>
-        </div>
-
-        <button type="submit" class="btn btn--primary" id="submitBtn">Sign in</button>
-
-        <!-- A place to show the overall result of a login attempt -->
-        <p class="form__status" id="formStatus" role="status"></p>
-      </form>
-
-      <!-- Demo credentials are shown openly because this is a teaching tool -->
-      <footer class="card__foot">
-        <p class="hint"><strong>Demo credentials</strong></p>
-        <p class="hint">Username: <code>student</code> &nbsp;·&nbsp; Password: <code>demo1234</code></p>
-      </footer>
-    </section>
-  </main>
+      </section>
+    </main>
+  </div>
 
   <script src="js/app.js"></script>
 </body>

@@ -1,32 +1,27 @@
 /* =============================================================
    Demo Portal — teaching stylesheet
-   Written to be read by students: plain CSS, no framework.
-   Colors are defined once as variables so they are easy to change.
+   Plain CSS, no framework, commented for students.
+   Layout mirrors a typical e-services portal: a top bar,
+   a left sidebar menu, and a main content area.
    ============================================================= */
 
 :root {
-  --bg: #eef2f7;
+  --bg: #e6ebf2;          /* page background */
+  --sidebar: #2c5697;     /* left menu blue */
+  --sidebar-hover: #24487f;
+  --strip: #1c3a66;       /* thin strip on top */
+  --topbar: #f2f4f7;      /* header title bar */
   --card-bg: #ffffff;
   --text: #1f2933;
   --muted: #6b7280;
-  --primary: #2563eb;
-  --primary-dark: #1d4ed8;
+  --primary: #2c5697;
+  --primary-dark: #24487f;
+  --accent: #cfe045;      /* the yellow-green caret color */
   --border: #d1d5db;
   --error: #dc2626;
   --success: #16a34a;
-  --radius: 12px;
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-}
-
-/* Support dark mode without changing the layout */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0f172a;
-    --card-bg: #1e293b;
-    --text: #e2e8f0;
-    --muted: #94a3b8;
-    --border: #334155;
-  }
+  --radius: 10px;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 * { box-sizing: border-box; }
@@ -39,64 +34,118 @@ body {
   min-height: 100vh;
 }
 
-/* The yellow warning strip at the top of the page */
+/* ---- Top banner + header ---- */
 .demo-banner {
   background: #fde68a;
   color: #78350f;
   text-align: center;
-  padding: 10px 16px;
+  padding: 9px 16px;
   font-size: 14px;
   font-weight: 600;
   line-height: 1.4;
 }
 
-.page {
+.topstrip { height: 8px; background: var(--strip); }
+
+.topbar {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 40px 16px;
-  min-height: calc(100vh - 44px);
+  gap: 12px;
+  background: var(--topbar);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+}
+.topbar__menu {
+  display: none;           /* only shows on small screens */
+  background: var(--sidebar);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 18px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.topbar__title {
+  font-weight: 700;
+  font-size: 14px;
+  color: #33475b;
+  letter-spacing: 0.5px;
 }
 
-/* The white login box */
+/* ---- Overall layout: sidebar + content ---- */
+.layout { display: flex; align-items: stretch; min-height: calc(100vh - 61px); }
+
+/* ---- Sidebar menu ---- */
+.sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  background: var(--sidebar);
+  padding: 12px 0;
+}
+.menu { list-style: none; margin: 0; padding: 0; }
+
+.menu__item { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+
+/* The clickable header of each menu section */
+.menu__button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+  padding: 12px 18px;
+  cursor: pointer;
+}
+.menu__button:hover { background: var(--sidebar-hover); }
+.menu__button .caret { color: var(--accent); font-size: 11px; transition: transform 0.15s; }
+.menu__button[aria-expanded="true"] .caret { transform: rotate(180deg); }
+
+/* Sub-links revealed when a section is expanded */
+.submenu { list-style: none; margin: 0; padding: 0; background: rgba(0, 0, 0, 0.12); }
+.submenu a {
+  display: block;
+  color: #dbe5f5;
+  text-decoration: none;
+  font-size: 13px;
+  padding: 9px 18px 9px 34px;
+}
+.submenu a:hover { background: var(--sidebar-hover); color: #fff; }
+
+/* ---- Main content ---- */
+.content { flex: 1; padding: 32px 20px; display: flex; justify-content: center; }
+
+/* Landing/welcome view */
+.welcome { text-align: center; padding-top: 24px; max-width: 560px; }
+.badge { width: 190px; height: 190px; }
+.welcome__title { margin: 12px 0 4px; font-size: 26px; letter-spacing: 1px; color: #1f2933; }
+.welcome__subtitle { margin: 0; font-size: 16px; font-weight: 700; color: #33475b; letter-spacing: 1px; }
+.welcome__hint { margin-top: 22px; color: var(--muted); font-size: 14px; }
+
+/* Panels (login / placeholder) */
+.panel { width: 100%; display: flex; justify-content: center; padding-top: 8px; }
+
+/* ---- Card ---- */
 .card {
   background: var(--card-bg);
   width: 100%;
   max-width: 400px;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  padding: 32px;
+  padding: 28px;
 }
-
-.card__head { text-align: center; margin-bottom: 24px; }
-
-.logo {
-  width: 56px;
-  height: 56px;
-  margin: 0 auto 12px;
-  border-radius: 14px;
-  background: var(--primary);
-  color: #fff;
-  font-weight: 700;
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.card__title { margin: 0 0 4px; font-size: 22px; }
+.card__head { text-align: center; margin-bottom: 20px; }
+.card__title { margin: 0 0 4px; font-size: 20px; }
 .card__subtitle { margin: 0; color: var(--muted); font-size: 14px; }
 
 /* ---- Form fields ---- */
 .field { margin-bottom: 18px; }
-
-.field__label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 14px;
-  font-weight: 600;
-}
-
+.field__label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 600; }
 .field__input {
   width: 100%;
   padding: 11px 12px;
@@ -107,22 +156,15 @@ body {
   color: var(--text);
   transition: border-color 0.15s, box-shadow 0.15s;
 }
-
 .field__input:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  box-shadow: 0 0 0 3px rgba(44, 86, 151, 0.15);
 }
+.field__input.is-invalid { border-color: var(--error); }
 
-/* When JS marks a field invalid, it adds this class */
-.field__input.is-invalid {
-  border-color: var(--error);
-}
-
-/* Password field + Show/Hide button sit side by side */
 .field__password { position: relative; }
 .field__password .field__input { padding-right: 64px; }
-
 .field__toggle {
   position: absolute;
   right: 8px;
@@ -136,26 +178,7 @@ body {
   cursor: pointer;
   padding: 4px 6px;
 }
-
-/* Inline error text under a field */
-.field__error {
-  margin: 6px 0 0;
-  min-height: 16px;
-  color: var(--error);
-  font-size: 13px;
-}
-
-.form__row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  font-size: 14px;
-}
-
-.checkbox { display: flex; align-items: center; gap: 6px; cursor: pointer; }
-.link { color: var(--primary); text-decoration: none; }
-.link:hover { text-decoration: underline; }
+.field__error { margin: 6px 0 0; min-height: 16px; color: var(--error); font-size: 13px; }
 
 /* ---- Buttons ---- */
 .btn {
@@ -168,33 +191,30 @@ body {
   cursor: pointer;
   transition: background 0.15s;
 }
-
 .btn--primary { background: var(--primary); color: #fff; }
 .btn--primary:hover { background: var(--primary-dark); }
 .btn--primary:disabled { opacity: 0.6; cursor: not-allowed; }
 
-/* Overall status message under the button */
-.form__status {
-  margin: 14px 0 0;
-  text-align: center;
-  font-size: 14px;
-  min-height: 18px;
-}
+.form__status { margin: 14px 0 0; text-align: center; font-size: 14px; min-height: 18px; }
 .form__status.is-error { color: var(--error); }
 .form__status.is-success { color: var(--success); }
 
 /* ---- Footer with demo credentials ---- */
-.card__foot {
-  margin-top: 22px;
-  padding-top: 18px;
-  border-top: 1px solid var(--border);
-  text-align: center;
-}
+.card__foot { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); text-align: center; }
 .hint { margin: 4px 0; font-size: 13px; color: var(--muted); }
 code {
-  background: rgba(37, 99, 235, 0.1);
+  background: rgba(44, 86, 151, 0.1);
   color: var(--primary);
   padding: 1px 6px;
   border-radius: 4px;
   font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+/* ---- Responsive: stack the sidebar on small screens ---- */
+@media (max-width: 720px) {
+  .topbar__menu { display: block; }
+  .layout { flex-direction: column; }
+  .sidebar { width: 100%; display: none; }
+  .sidebar.is-open { display: block; }
+  .content { padding: 20px 16px; }
 }
