@@ -3,53 +3,101 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Demo Portal — Dashboard</title>
+  <title>Demo Portal — Taxpayer Dashboard</title>
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
 </head>
 <body>
   <div class="demo-banner" role="note">
-    ⚠️ DEMO — teaching sample only. Not affiliated with any real service.
+    ⚠️ DEMO — teaching sample only. All data below is fake. Not a real portal or service.
   </div>
 
-  <main class="page">
-    <section class="card" style="max-width: 440px; text-align: center;">
-      <div class="logo" aria-hidden="true" style="margin-bottom:16px;">✓</div>
-      <h1 class="card__title">You're signed in</h1>
-      <p class="card__subtitle" id="welcome">Welcome to the sample dashboard.</p>
+  <!-- Top blue header (same as the login page) -->
+  <header class="topbar">
+    <button class="topbar__menu" id="menuToggle" aria-label="Toggle menu">☰</button>
+    <div class="topbar__brand">
+      <div class="brand-badge" aria-hidden="true">DP</div>
+      <div class="brand-text">
+        <strong>Demo Revenue Portal</strong>
+        <span>Training / Teaching Sample</span>
+      </div>
+    </div>
+    <div class="topbar__slogan">“A sample portal for learning — not a real service”</div>
+    <div class="topbar__date" id="topDate">Date: —</div>
+  </header>
 
-      <p class="hint" style="margin-top:20px;">
-        This page is only reachable after the demo login succeeds. In a real
-        application, a server would verify your session before showing it.
-      </p>
+  <!-- Breadcrumb + sub bar -->
+  <div class="breadcrumb">Integrated Tax Menus &nbsp;&gt;&gt;&nbsp; General &nbsp;&gt;&gt;&nbsp; Taxpayer Dashboard</div>
+  <div class="subbar subbar--dash">..::: Demo E-Services System :::..</div>
 
-      <button class="btn btn--primary" id="logoutBtn" style="margin-top:20px;">Log out</button>
-    </section>
-  </main>
+  <div class="layout">
+    <!-- ===== Left tree sidebar ===== -->
+    <nav class="tree-side" id="sidebar" aria-label="E-Services menu">
+      <div class="tree-side__title">Online E-Services</div>
+      <ul class="tree" id="tree"></ul>
+      <button class="btn-clear" id="clearCache2" type="button">🗑 Clear Cache</button>
+    </nav>
 
-  <script>
-    // Read the pretend session set by the login page.
-    let user = null;
-    try { user = sessionStorage.getItem("demo_user"); } catch (e) {}
+    <!-- ===== Main content ===== -->
+    <main class="dash">
+      <!-- Action buttons -->
+      <div class="dash__actions">
+        <button class="btn-amber" id="logoutBtn" type="button">Taxpayer Logout</button>
+        <button class="btn-amber" id="clearCache" type="button">Clear Cache</button>
+      </div>
 
-    // If someone opens this page directly without "logging in",
-    // send them back to the login page.
-    let loggedIn = false;
-    try { loggedIn = sessionStorage.getItem("demo_logged_in") === "true"; } catch (e) {}
-    if (!loggedIn) {
-      window.location.href = "index.html";
-    }
+      <!-- Taxpayer info -->
+      <div class="dash__info">
+        <div class="row"><span class="row__label">PAN:</span> <span id="panValue">123456789</span></div>
+        <div class="row"><span class="row__label">Trade Name:</span> <span id="tradeName">Demo Trader Pvt. Ltd.</span></div>
+        <div class="row"><span class="row__label">Logged in as:</span> <span id="userValue">—</span></div>
+      </div>
 
-    if (user) {
-      document.getElementById("welcome").textContent = "Welcome, " + user + "!";
-    }
+      <!-- Action links (demo) -->
+      <div class="dash__links" id="actionLinks"></div>
 
-    document.getElementById("logoutBtn").addEventListener("click", () => {
-      try {
-        sessionStorage.removeItem("demo_logged_in");
-        sessionStorage.removeItem("demo_user");
-      } catch (e) {}
-      window.location.href = "index.html";
-    });
-  </script>
+      <!-- Panel that opens when an action link is clicked -->
+      <section class="actionpanel" id="actionPanel" hidden>
+        <div class="section-head" id="actionPanelTitle">Action</div>
+        <div class="actionpanel__body" id="actionPanelBody"></div>
+      </section>
+
+      <!-- KYT notice -->
+      <section class="dash__block">
+        <div class="section-head">Please update KYT form.</div>
+        <div class="notice-box">
+          Reminder: please update your KYT (Know Your Taxpayer) form for the current fiscal year. This is a demo notice; no action is required.
+        </div>
+      </section>
+
+      <!-- Non Filer and Outstanding -->
+      <section class="dash__block">
+        <div class="section-head">Non Filer And Outstanding</div>
+        <p class="indicative">The information shown here is demo and indicative only. Nothing here is real.</p>
+        <div class="twocol">
+          <div class="panelbox">
+            <div class="panelbox__head">Non Filer</div>
+            <textarea class="panelbox__area" id="nonFiler" readonly>No non-filed returns found (demo data).</textarea>
+          </div>
+          <div class="panelbox">
+            <div class="panelbox__head">Outstanding</div>
+            <div class="out-row">
+              <label for="vatDue">VAT Due</label>
+              <input type="text" id="vatDue" value="0" readonly />
+            </div>
+            <div class="out-row">
+              <button class="btn-amber btn-amber--sm" id="payVat" type="button">✓ Pay VAT Due</button>
+            </div>
+            <div class="out-row">
+              <label for="incomeDue">Income Tax Due</label>
+              <input type="text" id="incomeDue" value="0" readonly />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/dashboard.js"></script>
 </body>
 </html>

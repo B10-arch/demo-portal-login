@@ -1,0 +1,165 @@
+/* =============================================================
+   Demo Portal — dashboard (after-login) styles
+   Reuses the color variables from styles.css.
+   Layout: light tree sidebar + content with info, action links,
+   a notice, and a Non-Filer/Outstanding section.
+   ============================================================= */
+
+/* Breadcrumb + dashboard sub bar */
+.breadcrumb {
+  background: #dfe6ef;
+  color: #33475b;
+  font-size: 12.5px;
+  padding: 6px 18px;
+  border-bottom: 1px solid var(--border);
+}
+.subbar--dash { background: #2f68b3; color: #fff; border-bottom: none; }
+
+/* ---- Left tree sidebar (light) ---- */
+.tree-side {
+  width: 250px;
+  flex-shrink: 0;
+  background: #fbfcfe;
+  border-right: 1px solid var(--border);
+  min-height: 70vh;
+  padding-bottom: 16px;
+}
+.tree-side__title {
+  background: #2f68b3;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 7px 14px;
+}
+.tree { list-style: none; margin: 8px 0; padding: 0; font-size: 13px; }
+.tree li { list-style: none; }
+
+.tree__node {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+  color: #23405f;
+  user-select: none;
+}
+.tree__node:hover { background: #eaf1fb; }
+.tree__toggle { width: 12px; text-align: center; color: #6b7280; font-size: 11px; }
+.tree__icon { color: #e0a92e; }              /* folder color */
+.tree__leaf .tree__icon { color: #7c93b5; }  /* page color */
+.tree__children { list-style: none; margin: 0; padding-left: 18px; }
+.tree__node--active { background: #d5e6fb; font-weight: 600; }
+
+.btn-clear {
+  display: block;
+  margin: 10px auto 0;
+  background: #eef1f5;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 5px 14px;
+  font-size: 12.5px;
+  cursor: pointer;
+  color: #33475b;
+}
+.btn-clear:hover { background: #e2e8f0; }
+
+/* ---- Main dashboard content ---- */
+.dash { flex: 1; padding: 18px 22px; min-width: 0; }
+
+.dash__actions { display: flex; gap: 12px; margin-bottom: 16px; }
+.btn-amber {
+  background: #fbe8c6;
+  border: 1px solid #e6c485;
+  color: #8a5a1a;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn-amber:hover { background: #f7dca6; }
+.btn-amber--sm { font-size: 12.5px; padding: 5px 10px; }
+
+/* Taxpayer info */
+.dash__info { border-bottom: 1px solid var(--border); padding-bottom: 14px; margin-bottom: 14px; }
+.dash__info .row { display: flex; gap: 10px; font-size: 14px; margin: 6px 0; }
+.row__label { font-weight: 700; min-width: 110px; color: #1f2933; }
+
+/* Action links */
+.dash__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  padding: 4px 0 16px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+  line-height: 1.9;
+}
+.dash__links a {
+  color: #c0392b;
+  font-weight: 700;
+  font-size: 13.5px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.dash__links a:hover { text-decoration: underline; }
+.dash__links .sep { color: #b0b7c0; }
+
+/* Action panel */
+.actionpanel { border: 1px solid var(--border); border-radius: 6px; margin-bottom: 18px; overflow: hidden; }
+.actionpanel__body { padding: 14px; font-size: 13.5px; background: #fff; }
+
+/* Section blocks */
+.dash__block { margin-bottom: 20px; }
+.section-head {
+  background: #eef1f5;
+  border: 1px solid var(--border);
+  border-left: 4px solid #2f68b3;
+  font-weight: 700;
+  font-size: 13.5px;
+  padding: 7px 12px;
+  color: #23405f;
+}
+.notice-box {
+  border: 1px solid #b7c6dc;
+  background: #eaf2fb;
+  color: #23405f;
+  font-size: 13.5px;
+  padding: 12px 14px;
+  margin-top: 10px;
+  border-radius: 4px;
+}
+.indicative { color: #c0392b; font-size: 13.5px; margin: 8px 0 12px; }
+
+/* Two-column Non Filer / Outstanding */
+.twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.panelbox { border: 1px solid var(--border); border-radius: 6px; background: #fff; }
+.panelbox__head { background: #f5f7fa; border-bottom: 1px solid var(--border); padding: 7px 12px; font-weight: 700; font-size: 13px; }
+.panelbox__area { width: 100%; border: none; padding: 12px; min-height: 130px; font-family: inherit; font-size: 13px; resize: vertical; background: #fff; color: var(--text); }
+.out-row { display: flex; align-items: center; gap: 10px; padding: 10px 12px; }
+.out-row label { min-width: 110px; font-size: 13px; font-weight: 600; }
+.out-row input { flex: 1; padding: 7px 10px; border: 1px solid var(--border); border-radius: 5px; background: #f7f9fc; }
+
+/* Small toast for demo actions */
+.toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: #23405f;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .2s, transform .2s;
+  z-index: 50;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 760px) {
+  .tree-side { width: 100%; display: none; }
+  .tree-side.is-open { display: block; }
+  .twocol { grid-template-columns: 1fr; }
+}
