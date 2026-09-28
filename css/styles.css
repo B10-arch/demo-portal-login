@@ -1,22 +1,31 @@
 /* =============================================================
    Demo Portal — teaching stylesheet
-   Plain CSS, no framework, commented for students.
-   Layout mirrors a typical e-services portal: a top bar,
-   a left sidebar menu, and a main content area.
+   Colors matched to the reference portal screenshot:
+   - blue top bar
+   - bright-blue menu section headers
+   - dark-navy submenus with small page icons
+   Plain CSS, commented for students.
    ============================================================= */
 
 :root {
-  --bg: #e6ebf2;          /* page background */
-  --sidebar: #2c5697;     /* left menu blue */
-  --sidebar-hover: #24487f;
-  --strip: #1c3a66;       /* thin strip on top */
-  --topbar: #f2f4f7;      /* header title bar */
+  --bg: #e6ebf2;
+
+  /* Blues sampled to match the reference screenshot */
+  --top-blue: #2f6cbf;
+  --top-blue-2: #24559e;
+  --sec-blue: #3877c4;       /* menu section header */
+  --sec-blue-2: #2f68b3;
+  --sec-hover: #2a5ea6;
+  --sub-navy: #103c78;       /* expanded submenu background */
+  --sub-hover: #1b4f96;
+
+  --subbar: #eef1f5;
   --card-bg: #ffffff;
   --text: #1f2933;
   --muted: #6b7280;
   --primary: #2c5697;
   --primary-dark: #24487f;
-  --accent: #cfe045;      /* the yellow-green caret color */
+  --caret: #ffd24d;          /* yellow caret */
   --border: #d1d5db;
   --error: #dc2626;
   --success: #16a34a;
@@ -34,7 +43,7 @@ body {
   min-height: 100vh;
 }
 
-/* ---- Top banner + header ---- */
+/* ---- Demo warning banner ---- */
 .demo-banner {
   background: #fde68a;
   color: #78350f;
@@ -45,19 +54,17 @@ body {
   line-height: 1.4;
 }
 
-.topstrip { height: 8px; background: var(--strip); }
-
+/* ---- Top blue header bar ---- */
 .topbar {
   display: flex;
   align-items: center;
-  gap: 12px;
-  background: var(--topbar);
-  border-bottom: 1px solid var(--border);
-  padding: 10px 16px;
+  gap: 16px;
+  background: linear-gradient(180deg, var(--top-blue), var(--top-blue-2));
+  color: #ffffff;
+  padding: 10px 20px;
 }
 .topbar__menu {
-  display: none;           /* only shows on small screens */
-  background: var(--sidebar);
+  background: rgba(255, 255, 255, 0.15);
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -65,72 +72,105 @@ body {
   padding: 4px 10px;
   cursor: pointer;
 }
-.topbar__title {
-  font-weight: 700;
+.topbar__brand { display: flex; align-items: center; gap: 10px; }
+.brand-badge {
+  width: 42px; height: 42px;
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--top-blue);
+  font-weight: 800;
+  font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+}
+.brand-text { display: flex; flex-direction: column; line-height: 1.2; }
+.brand-text strong { font-size: 16px; }
+.brand-text span { font-size: 11px; opacity: 0.85; }
+
+.topbar__slogan {
+  flex: 1;
+  text-align: center;
+  font-style: italic;
   font-size: 14px;
+  opacity: 0.95;
+}
+.topbar__date { font-size: 13px; font-weight: 700; white-space: nowrap; }
+
+/* ---- Sub header strip ---- */
+.subbar {
+  background: var(--subbar);
+  border-bottom: 1px solid var(--border);
+  padding: 7px 20px;
+  font-size: 13px;
+  font-weight: 700;
   color: #33475b;
   letter-spacing: 0.5px;
 }
 
-/* ---- Overall layout: sidebar + content ---- */
-.layout { display: flex; align-items: stretch; min-height: calc(100vh - 61px); }
+/* ---- Layout: sidebar + content ---- */
+.layout { display: flex; align-items: flex-start; }
 
-/* ---- Sidebar menu ---- */
-.sidebar {
-  width: 280px;
-  flex-shrink: 0;
-  background: var(--sidebar);
-  padding: 12px 0;
-}
+/* ---- Sidebar ---- */
+.sidebar { width: 235px; flex-shrink: 0; background: var(--sub-navy); }
 .menu { list-style: none; margin: 0; padding: 0; }
+.menu__item { border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
 
-.menu__item { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
-
-/* The clickable header of each menu section */
+/* Section header (bright blue bar) */
 .menu__button {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  background: transparent;
+  background: linear-gradient(180deg, var(--sec-blue), var(--sec-blue-2));
   border: none;
   color: #ffffff;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 700;
   text-align: left;
-  padding: 12px 18px;
+  padding: 10px 14px;
   cursor: pointer;
 }
-.menu__button:hover { background: var(--sidebar-hover); }
-.menu__button .caret { color: var(--accent); font-size: 11px; transition: transform 0.15s; }
-.menu__button[aria-expanded="true"] .caret { transform: rotate(180deg); }
+.menu__button:hover { background: var(--sec-hover); }
+.menu__button .caret { color: var(--caret); font-size: 10px; transition: transform 0.15s; }
+.menu__button[aria-expanded="false"] .caret { transform: rotate(-90deg); }
 
-/* Sub-links revealed when a section is expanded */
-.submenu { list-style: none; margin: 0; padding: 0; background: rgba(0, 0, 0, 0.12); }
+/* Submenu (dark navy) */
+.submenu { list-style: none; margin: 0; padding: 4px 0; background: var(--sub-navy); }
 .submenu a {
-  display: block;
-  color: #dbe5f5;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: #eaf0fb;
   text-decoration: none;
-  font-size: 13px;
-  padding: 9px 18px 9px 34px;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 7px 14px 7px 16px;
+  line-height: 1.3;
 }
-.submenu a:hover { background: var(--sidebar-hover); color: #fff; }
+.submenu a:hover { background: var(--sub-hover); color: #fff; }
+/* small page icon before each sub-link */
+.submenu a::before {
+  content: "";
+  flex-shrink: 0;
+  margin-top: 1px;
+  width: 12px; height: 14px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='14'%3E%3Cpath d='M2 1h5l3 3v9H2z' fill='%23d7e2f4' stroke='%23ffffff' stroke-width='0.5'/%3E%3Cpath d='M7 1v3h3' fill='none' stroke='%23ffffff' stroke-width='0.5'/%3E%3C/svg%3E") no-repeat center;
+}
 
 /* ---- Main content ---- */
-.content { flex: 1; padding: 32px 20px; display: flex; justify-content: center; }
+.content { flex: 1; padding: 28px 20px; display: flex; justify-content: center; min-height: 60vh; }
 
-/* Landing/welcome view */
-.welcome { text-align: center; padding-top: 24px; max-width: 560px; }
+/* Welcome view */
+.welcome { text-align: center; padding-top: 12px; max-width: 560px; }
 .badge { width: 190px; height: 190px; }
 .welcome__title { margin: 12px 0 4px; font-size: 26px; letter-spacing: 1px; color: #1f2933; }
 .welcome__subtitle { margin: 0; font-size: 16px; font-weight: 700; color: #33475b; letter-spacing: 1px; }
 .welcome__hint { margin-top: 22px; color: var(--muted); font-size: 14px; }
 
-/* Panels (login / placeholder) */
+/* Panels */
 .panel { width: 100%; display: flex; justify-content: center; padding-top: 8px; }
 
-/* ---- Card ---- */
+/* Card */
 .card {
   background: var(--card-bg);
   width: 100%;
@@ -143,7 +183,7 @@ body {
 .card__title { margin: 0 0 4px; font-size: 20px; }
 .card__subtitle { margin: 0; color: var(--muted); font-size: 14px; }
 
-/* ---- Form fields ---- */
+/* Form fields */
 .field { margin-bottom: 18px; }
 .field__label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 600; }
 .field__input {
@@ -156,63 +196,34 @@ body {
   color: var(--text);
   transition: border-color 0.15s, box-shadow 0.15s;
 }
-.field__input:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(44, 86, 151, 0.15);
-}
+.field__input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(44, 86, 151, 0.15); }
 .field__input.is-invalid { border-color: var(--error); }
-
 .field__password { position: relative; }
 .field__password .field__input { padding-right: 64px; }
 .field__toggle {
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  border: none;
-  background: transparent;
-  color: var(--primary);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 4px 6px;
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  border: none; background: transparent; color: var(--primary);
+  font-size: 13px; font-weight: 600; cursor: pointer; padding: 4px 6px;
 }
 .field__error { margin: 6px 0 0; min-height: 16px; color: var(--error); font-size: 13px; }
 
-/* ---- Buttons ---- */
-.btn {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.15s;
-}
+/* Buttons */
+.btn { width: 100%; padding: 12px; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.15s; }
 .btn--primary { background: var(--primary); color: #fff; }
 .btn--primary:hover { background: var(--primary-dark); }
 .btn--primary:disabled { opacity: 0.6; cursor: not-allowed; }
-
 .form__status { margin: 14px 0 0; text-align: center; font-size: 14px; min-height: 18px; }
 .form__status.is-error { color: var(--error); }
 .form__status.is-success { color: var(--success); }
 
-/* ---- Footer with demo credentials ---- */
+/* Footer with demo credentials */
 .card__foot { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); text-align: center; }
 .hint { margin: 4px 0; font-size: 13px; color: var(--muted); }
-code {
-  background: rgba(44, 86, 151, 0.1);
-  color: var(--primary);
-  padding: 1px 6px;
-  border-radius: 4px;
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
-}
+code { background: rgba(44, 86, 151, 0.1); color: var(--primary); padding: 1px 6px; border-radius: 4px; font-family: ui-monospace, "SF Mono", Menlo, monospace; }
 
-/* ---- Responsive: stack the sidebar on small screens ---- */
-@media (max-width: 720px) {
-  .topbar__menu { display: block; }
+/* ---- Responsive ---- */
+@media (max-width: 760px) {
+  .topbar__slogan { display: none; }
   .layout { flex-direction: column; }
   .sidebar { width: 100%; display: none; }
   .sidebar.is-open { display: block; }

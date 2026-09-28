@@ -13,30 +13,36 @@
     ⚠️ DEMO — teaching sample only. Not a real portal and not affiliated with any organization. Do not enter real passwords.
   </div>
 
-  <!-- Thin top strip + header title bar (mirrors a typical portal header) -->
-  <div class="topstrip"></div>
+  <!-- ============ TOP HEADER (blue bar) ============ -->
   <header class="topbar">
     <button class="topbar__menu" id="menuToggle" aria-label="Toggle menu">☰</button>
-    <span class="topbar__title">..::: Demo E-Services System :::..</span>
+    <div class="topbar__brand">
+      <div class="brand-badge" aria-hidden="true">DP</div>
+      <div class="brand-text">
+        <strong>Demo Revenue Portal</strong>
+        <span>Training / Teaching Sample</span>
+      </div>
+    </div>
+    <div class="topbar__slogan">“A sample portal for learning — not a real service”</div>
+    <div class="topbar__date" id="topDate">Date: —</div>
   </header>
+
+  <!-- Sub header strip -->
+  <div class="subbar">..::: Demo E-Services System :::..</div>
 
   <div class="layout">
     <!-- ============ SIDEBAR MENU ============ -->
     <nav class="sidebar" id="sidebar" aria-label="Main menu">
-      <!-- Menu items are built by JavaScript from the list in js/app.js.
-           Each one is a collapsible section (accordion). -->
       <ul class="menu" id="menu"></ul>
     </nav>
 
     <!-- ============ MAIN CONTENT ============ -->
     <main class="content" id="content">
-      <!-- Default landing view: a neutral placeholder badge + title.
-           This replaces the national emblem from the original layout. -->
+      <!-- Default landing view: neutral placeholder badge (replaces national emblem) -->
       <section class="welcome" id="welcomeView">
         <svg class="badge" viewBox="0 0 200 200" role="img" aria-label="Demo Portal badge">
           <circle cx="100" cy="100" r="94" fill="#e8eef7" stroke="#2c5697" stroke-width="4"/>
           <circle cx="100" cy="100" r="70" fill="#2c5697"/>
-          <!-- a simple graduation cap to signal 'teaching' -->
           <path d="M100 66 L142 84 L100 102 L58 84 Z" fill="#ffffff"/>
           <path d="M76 92 L76 112 Q100 126 124 112 L124 92" fill="none" stroke="#ffffff" stroke-width="5"/>
           <line x1="142" y1="84" x2="142" y2="110" stroke="#ffffff" stroke-width="4"/>
@@ -45,17 +51,16 @@
         </svg>
         <h1 class="welcome__title">..:: DEMO PORTAL ::..</h1>
         <p class="welcome__subtitle">TRAINING SAMPLE — NOT A REAL SERVICE</p>
-        <p class="welcome__hint">Choose <strong>General Login</strong> from the menu to try the sample sign-in.</p>
+        <p class="welcome__hint">Pick any menu item on the left. Items ending in <strong>Login</strong> open the sample sign-in.</p>
       </section>
 
-      <!-- Login view: hidden until 'General Login' is chosen -->
+      <!-- Login view -->
       <section class="panel" id="loginView" hidden>
         <div class="card" aria-labelledby="login-title">
           <header class="card__head">
             <h2 id="login-title" class="card__title">General Login</h2>
-            <p class="card__subtitle">Sign in to the sample dashboard</p>
+            <p class="card__subtitle" id="loginContext">Sign in to the sample dashboard</p>
           </header>
-
           <form id="loginForm" class="form" novalidate>
             <div class="field">
               <label for="username" class="field__label">Username</label>
@@ -63,7 +68,6 @@
                      autocomplete="username" placeholder="e.g. student" aria-describedby="username-error" />
               <p class="field__error" id="username-error" role="alert"></p>
             </div>
-
             <div class="field">
               <label for="password" class="field__label">Password</label>
               <div class="field__password">
@@ -73,11 +77,9 @@
               </div>
               <p class="field__error" id="password-error" role="alert"></p>
             </div>
-
             <button type="submit" class="btn btn--primary" id="submitBtn">Sign in</button>
             <p class="form__status" id="formStatus" role="status"></p>
           </form>
-
           <footer class="card__foot">
             <p class="hint"><strong>Demo credentials</strong></p>
             <p class="hint">Username: <code>student</code> &nbsp;·&nbsp; Password: <code>demo1234</code></p>
@@ -85,7 +87,7 @@
         </div>
       </section>
 
-      <!-- Placeholder view: shown for any other menu item -->
+      <!-- Placeholder view (for non-login menu items) -->
       <section class="panel" id="placeholderView" hidden>
         <div class="card">
           <h2 class="card__title" id="placeholderTitle">Section</h2>
